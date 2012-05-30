@@ -6,7 +6,7 @@ Release:	1
 License:	GPL
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/project/linuxwacom/xf86-input-wacom/xf86-input-wacom-%{version}.tar.bz2
-# Source0-md5:	4a426535989e84c4161e3607ea851654
+# Source0-md5:	3e342101f1f22a38741f246403487be6
 URL:		http://xorg.freedesktop.org/
 BuildRequires:	autogen
 BuildRequires:	automake
