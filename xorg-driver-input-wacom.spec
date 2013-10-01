@@ -1,18 +1,29 @@
 Summary:	X.org input driver for Wacom tablets
 Summary(pl.UTF-8):	Sterownik wejściowy X.org dla tabletów Wacom
 Name:		xorg-driver-input-wacom
-Version:	0.16.0
-Release:	3
-License:	GPL
+Version:	0.23.0
+Release:	1
+License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://downloads.sourceforge.net/project/linuxwacom/xf86-input-wacom/xf86-input-wacom-%{version}.tar.bz2
-# Source0-md5:	aeee2bd339c825a9b1215df6a2e5e50b
+Source0:	http://downloads.sourceforge.net/linuxwacom/xf86-input-wacom-%{version}.tar.bz2
+# Source0-md5:	353642b8a3f2dde089e913be32955aae
 URL:		http://xorg.freedesktop.org/
-BuildRequires:	autogen
+BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
-BuildRequires:	pkg-config
-BuildRequires:	xorg-util-util-macros
-BuildRequires:	xorg-xserver-server-devel
+BuildRequires:	doxygen >= 1.6.1
+BuildRequires:	pkgconfig
+BuildRequires:	udev-devel
+BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXi-devel
+BuildRequires:	xorg-lib-libXinerama-devel
+BuildRequires:	xorg-lib-libXrandr-devel
+BuildRequires:	xorg-proto-inputproto-devel
+BuildRequires:	xorg-proto-kbproto-devel
+BuildRequires:	xorg-proto-randrproto-devel
+BuildRequires:	xorg-proto-xproto-devel
+BuildRequires:	xorg-util-util-macros >= 1.8
+BuildRequires:	xorg-xserver-server-devel >= 1.7.0
+Requires:	xorg-xserver-server >= 1.7.0
 %requires_xorg_xserver_xinput
 Obsoletes:	linuxwacom
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -26,7 +37,8 @@ Sterownik wejściowy X.org dla tabletów Wacom
 %package devel
 Summary:	Header file for wacom driver
 Summary(pl.UTF-8):	Plik nagłówkowy sterownika wacom
-Group:		Development/Libraries
+Group:		X11/Development/Libraries
+Requires:	xorg-proto-xproto-devel
 
 %description devel
 Header file for wacom driver
@@ -44,8 +56,6 @@ Plik nagłówkowy sterownika wacom
 %{__autoheader}
 %{__automake}
 %configure \
-	--enable-shared \
-	--enable-static \
 	--enable-debug
 
 %{__make}
@@ -55,14 +65,16 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/xorg/modules/input/wacom_drv.la
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS README
-%attr(755,root,root) %{_libdir}/xorg/modules/input/wacom_drv.*
+%doc AUTHORS ChangeLog README
 %attr(755,root,root) %{_bindir}/xsetwacom
+%attr(755,root,root) %{_libdir}/xorg/modules/input/wacom_drv.so
 %{_datadir}/X11/xorg.conf.d/50-wacom.conf
 %{_mandir}/man1/xsetwacom.1*
 %{_mandir}/man4/wacom.4*
