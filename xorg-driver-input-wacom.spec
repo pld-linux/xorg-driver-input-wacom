@@ -1,12 +1,12 @@
 Summary:	X.org input driver for Wacom tablets
 Summary(pl.UTF-8):	Sterownik wejściowy X.org dla tabletów Wacom
 Name:		xorg-driver-input-wacom
-Version:	0.23.0
-Release:	6
+Version:	0.30.0
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/linuxwacom/xf86-input-wacom-%{version}.tar.bz2
-# Source0-md5:	353642b8a3f2dde089e913be32955aae
+# Source0-md5:	3ab2bccf356999f1a96d03deba155bc3
 URL:		http://xorg.freedesktop.org/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
@@ -14,6 +14,7 @@ BuildRequires:	doxygen >= 1.6.1
 BuildRequires:	pkgconfig
 BuildRequires:	udev-devel
 BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	xorg-lib-libXi-devel
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXrandr-devel
@@ -56,7 +57,9 @@ Plik nagłówkowy sterownika wacom
 %{__autoheader}
 %{__automake}
 %configure \
-	--enable-debug
+	--enable-debug \
+	--with-systemd-unit-dir=%{systemdunitdir} \
+	--with-udev-rules-dir=/lib/udev/rules.d
 
 %{__make}
 
@@ -73,9 +76,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog README
+%attr(755,root,root) %{_bindir}/isdv4-serial-inputattach
 %attr(755,root,root) %{_bindir}/xsetwacom
 %attr(755,root,root) %{_libdir}/xorg/modules/input/wacom_drv.so
 %{_datadir}/X11/xorg.conf.d/50-wacom.conf
+%{systemdunitdir}/wacom-inputattach@.service
+/lib/udev/rules.d/wacom.rules
 %{_mandir}/man1/xsetwacom.1*
 %{_mandir}/man4/wacom.4*
 
