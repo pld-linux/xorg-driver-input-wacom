@@ -26,14 +26,14 @@ BuildRequires:	xorg-util-util-macros >= 1.8
 BuildRequires:	xorg-xserver-server-devel >= 1.7.0
 Requires:	xorg-xserver-server >= 1.7.0
 %requires_xorg_xserver_xinput
-Obsoletes:	linuxwacom
+Obsoletes:	linuxwacom < 0.12.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 X.org input driver for Wacom tablets.
 
 %description -l pl.UTF-8
-Sterownik wejściowy X.org dla tabletów Wacom
+Sterownik wejściowy X.org dla tabletów Wacom.
 
 %package devel
 Summary:	Header file for wacom driver
@@ -42,10 +42,10 @@ Group:		X11/Development/Libraries
 Requires:	xorg-proto-xproto-devel
 
 %description devel
-Header file for wacom driver
+Header file for wacom driver.
 
 %description devel -l pl.UTF-8
-Plik nagłówkowy sterownika wacom
+Plik nagłówkowy sterownika wacom.
 
 %prep
 %setup -q -n xf86-input-wacom-%{version}
