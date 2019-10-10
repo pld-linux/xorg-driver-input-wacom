@@ -1,13 +1,14 @@
 Summary:	X.org input driver for Wacom tablets
 Summary(pl.UTF-8):	Sterownik wejściowy X.org dla tabletów Wacom
 Name:		xorg-driver-input-wacom
-Version:	0.36.0
+Version:	0.37.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications
-Source0:	http://downloads.sourceforge.net/linuxwacom/xf86-input-wacom-%{version}.tar.bz2
-# Source0-md5:	d1d45f05cf1877b181dc324ce1deb7e9
-URL:		http://xorg.freedesktop.org/
+#Source0Download: https://github.com/linuxwacom/xf86-input-wacom/releases
+Source0:	https://github.com/linuxwacom/xf86-input-wacom/releases/download/xf86-input-wacom-%{version}/xf86-input-wacom-%{version}.tar.bz2
+# Source0-md5:	c6e9409e2fa3ae3f01eaf913a6ca9c9f
+URL:		https://linuxwacom.github.io/
 BuildRequires:	autoconf >= 2.60
 BuildRequires:	automake
 BuildRequires:	doxygen >= 1.6.1
@@ -75,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog
 %attr(755,root,root) %{_bindir}/isdv4-serial-inputattach
 %attr(755,root,root) %{_bindir}/xsetwacom
 %attr(755,root,root) %{_libdir}/xorg/modules/input/wacom_drv.so
